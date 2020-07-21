@@ -1,22 +1,83 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html>
   <head>
-    <!-- Required meta tags -->
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-
-    <title>Hello, world!</title>
+    <title>Marker Clustering</title>
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
   </head>
   <body>
-    <h1>Hello, world!</h1>
+    <div id="map"></div>
+    <script>
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+      function initMap() {
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 3,
+          center: {lat: 31, lng: -100}
+        });
+
+        // Create an array of alphabetical characters used to label the markers.
+        var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+        // Add some markers to the map.
+        // Note: The code uses the JavaScript Array.prototype.map() method to
+        // create an array of markers based on a given "locations" array.
+        // The map() method here has nothing to do with the Google Maps API.
+        var markers = locations.map(function(location, i) {
+          return new google.maps.Marker({
+            position: location,
+            label: labels[i % labels.length]
+          });
+        });
+
+        // Add a marker clusterer to manage the markers.
+        var markerCluster = new MarkerClusterer(map, markers,
+            {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+      }
+      var locations = [
+        {lat: 32.361538, lng: -86.279118}, // Alabama
+        {lat: 58.301935, lng: -134.419740}, //Alaska
+        {lat: 33.448457, lng: -112.073844}, //Arizona
+        {lat: 34.736009, lng: -92.331122}, //Arkansas
+        {lat:38.555605 , lng: -121.468926}, //California
+        {lat: 39.7391667, lng: -104984167}, //Colorado
+        {lat: 41.767, lng: -72.677}, //Connecticut
+        {lat: 39.161921, lng: -75.526755}, //Delaware
+        {lat: 30.4518, lng: -84.27277}, //Florida
+        {lat: 33.76, lng: -84.39}, //Georgia
+        {lat: 21.30895, lng: -157.826182}, //Hawaii
+        {lat: 43.613739, lng: -116.237651}, //Idaho
+        {lat: 39.783250, lng: -89.650373}, //Florida
+        {lat: 30.4518, lng: -84.27277}, //Florida
+        {lat: 30.4518, lng: -84.27277}, //Florida
+        {lat: 30.4518, lng: -84.27277}, //Florida
+        {lat: 30.4518, lng: -84.27277}, //Florida
+        {lat: 30.4518, lng: -84.27277}, //Florida
+        {lat: 30.4518, lng: -84.27277}, //Florida
+        {lat: 30.4518, lng: -84.27277}, //Florida
+      
+      
+      
+      ]
+    </script>
+    <!-- Replace following script src -->
+    <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA-s9ggQGzNVoeAgfOFrBN1B-mtsZafh9A&callback=initMap">
+    </script>
   </body>
 </html>
